@@ -3,13 +3,15 @@
   <main>
     <router-view />
   </main>
+  <Footer />
 </template>
 
 
 <script>
+import Footer from "./components/Footer.vue";
 import Navigation from "./components/Navigation.vue";
 export default {
-  components: { Navigation },
+  components: { Navigation, Footer },
 };
 </script>
 <style lang="scss">
@@ -53,6 +55,21 @@ export default {
   border: none;
   text-transform: uppercase;
   text-decoration: none;
+}
+.orange-button {
+  font-size: 0.875rem;
+  align-items: center;
+  font-weight: 700;
+  padding: 0.9rem 1.665rem;
+  border: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+
+  background-color: hsl(22, 65%, 57%);
+  &:hover {
+    background-color: hsl(21, 94%, 75%);
+  }
 }
 
 .orange-bg {

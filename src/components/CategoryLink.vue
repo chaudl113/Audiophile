@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import CardProduct from "./CardCategory.vue";
+import CardProduct from "./CategoryCard.vue";
 export default {
   components: { CardProduct },
   name: "CategoryLink",

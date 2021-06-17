@@ -70,6 +70,8 @@ header {
   background-color: #191919;
   color: #fff;
   .header__container {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
     justify-content: space-between;
     padding: 30px 0;
     align-items: center;

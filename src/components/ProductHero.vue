@@ -8,7 +8,7 @@
     >
     <div class="container">
       <div>
-        <span>new product</span>
+        <span>{{ productHero.status }}</span>
         <h1>{{ productHero.name }}</h1>
         <p>
           {{ productHero.description }}
@@ -43,7 +43,6 @@ export default {
     margin-bottom: 5rem;
   }
   .container {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
     min-height: 90vh;
     display: flex;
     align-items: center;
