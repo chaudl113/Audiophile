@@ -15,7 +15,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;700;800&display=swap");
 
 * {
   margin: 0;
@@ -32,6 +32,10 @@ export default {
 
 .flex-column {
   flex-direction: column;
+}
+
+.mb-10 {
+  margin-bottom: 10rem !important;
 }
 
 .container {
@@ -65,6 +69,7 @@ export default {
   text-transform: uppercase;
   text-decoration: none;
   color: #fff;
+  display: inline-block;
 
   background-color: hsl(22, 65%, 57%);
   &:hover {

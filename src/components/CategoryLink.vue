@@ -2,7 +2,7 @@
   <div class="category-link">
     <div class="container">
       <ul class="menu-list flex">
-        <card-product
+        <category-card
           v-for="(item, index) in products"
           :key="index"
           :product="item"
@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import CardProduct from "./CategoryCard.vue";
+import CategoryCard from "./CategoryCard.vue";
 export default {
-  components: { CardProduct },
+  components: { CategoryCard },
   name: "CategoryLink",
   props: ["products"],
 };
@@ -30,7 +30,6 @@ export default {
   .menu-list {
     background-color: hsl(0, 0%, 100%);
     flex-direction: row;
-    padding: 2rem 1.5rem;
     display: grid;
     gap: 32px;
     border-bottom-left-radius: 10px;

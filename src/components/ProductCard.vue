@@ -2,7 +2,9 @@
   <div class="product">
     <div class="product__photo">
       <img
-        :src="require(`../assets/image/products/${product.imgProduct}.jpg`)"
+        :src="
+          require(`../assets/image/products/${product.imgProduct}/${product.imgProduct}.jpg`)
+        "
         alt=""
       />
     </div>
@@ -11,9 +13,9 @@
         <span class="overline"> {{ product.status }}</span>
         <h3>{{ product.name }}</h3>
         <p>
-         {{ product.description }}
+          {{ product.description }}
         </p>
-        <a href="#" class="orange-button">See product</a>
+        <router-link :to="{ name: 'Product', params: { productId: product.productId } }" class="orange-button">See product</router-link>
       </div>
     </div>
   </div>
@@ -41,7 +43,7 @@ export default {
       flex: 4;
       border-radius: 10px;
       @media (min-width: 800px) {
-        order: 2;
+        order: 1;
       }
       img {
         border-radius: 10px;
@@ -55,7 +57,7 @@ export default {
       order: 2;
       flex: 4;
       @media (min-width: 800px) {
-        order: 1;
+        order: 2;
       }
       display: block;
       width: 100%;
@@ -95,11 +97,14 @@ export default {
     }
     &:nth-child(even) {
       .product__photo {
-        order: 1 !important;
-      }
-      .product__info {
         order: 2 !important;
       }
+      .product__info {
+        order: 1 !important;
+      }
+    }
+    &:last-child {
+      margin-bottom: 10rem;
     }
   }
 }

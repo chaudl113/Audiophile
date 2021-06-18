@@ -1,19 +1,23 @@
 <template>
-  <main>
-    <section>
-      <div class="container">
-        <h4>SPEAKERS</h4>
-      </div>
-    </section>
-    <product-card />
-    <category-link :products="categoryProduct" />
-    <introduce />
-  </main>
+  <section class="speakers">
+    <div class="container">
+      <h4>SPEAKERS</h4>
+    </div>
+  </section>
+  <div class="container products">
+    <product-card
+      v-for="(item, index) in filteredSpeakers"
+      :key="index"
+      :product="item"
+    />
+  </div>
+  <category-link class="mb-10" :products="categoryProduct" />
+  <introduce class="mb-10" />
 </template>
 
 <script>
 import CategoryLink from "../components/CategoryLink.vue";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import Introduce from "../components/Introduce.vue";
 import ProductCard from "../components/ProductCard.vue";
 
@@ -21,12 +25,13 @@ export default {
   components: { CategoryLink, Introduce, ProductCard },
   computed: {
     ...mapState(["productHero", "categoryProduct", "productsHome"]),
+    ...mapGetters(["filteredSpeakers"]),
   },
 };
 </script>
 
 <style lang="scss" scoped>
-section {
+.speakers {
   background-color: #000;
 
   .container {

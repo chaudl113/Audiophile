@@ -2,19 +2,25 @@
   <footer>
     <div class="container">
       <nav class="flex">
-        <img src="../assets/image/shared/desktop/logo.svg" alt="" />
+        <a href="/">
+          <img src="../assets/image/shared/desktop/logo.svg" alt=""
+        /></a>
         <ul class="nav__list flex">
           <li>
-            <router-link class="nav-link" to="#">Home</router-link>
+            <router-link class="nav-link" to="/">Home</router-link>
           </li>
           <li>
-            <router-link class="nav-link" to="#">headphones</router-link>
+            <router-link class="nav-link" to="/headphones"
+              >headphones</router-link
+            >
           </li>
           <li>
-            <router-link class="nav-link" to="#">speakers</router-link>
+            <router-link class="nav-link" to="/speakers">speakers</router-link>
           </li>
           <li>
-            <router-link class="nav-link" to="#">earphones</router-link>
+            <router-link class="nav-link" to="/earphones"
+              >earphones</router-link
+            >
           </li>
         </ul>
       </nav>

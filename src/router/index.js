@@ -6,6 +6,7 @@ import Home from "../views/Home.vue";
 import Headphones from "../views/Headphones.vue";
 import Speakers from "../views/Speakers.vue";
 import Earphones from "../views/Earphones.vue";
+import Product from "../views/ProductView.vue";
 
 
 
@@ -28,6 +29,11 @@ const routes = [{
     path: "/earphones",
     name: "Earphones",
     component: Earphones,
+  },
+  {
+    path: "/product/:productId",
+    name: "Product",
+    component: Product,
   },
 ];
 

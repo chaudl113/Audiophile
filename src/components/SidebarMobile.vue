@@ -22,7 +22,7 @@
       <li class="navlink">
         <img
           class="img-card"
-          src="../assets/image/shared/desktop/image-headphones.png"
+          src="../assets/image/shared/desktop/image-speakers.png"
           alt=""
         />
         <div class="card">
@@ -40,7 +40,7 @@
       <li class="navlink">
         <img
           class="img-card"
-          src="../assets/image/shared/desktop/image-headphones.png"
+          src="../assets/image/shared/desktop/image-earphones.png"
           alt=""
         />
         <div class="card">

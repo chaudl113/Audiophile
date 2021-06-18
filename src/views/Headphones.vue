@@ -1,32 +1,34 @@
 <template>
-  <main>
-    <section>
-      <div class="container">
-        <h4>HEADPHONES</h4>
-      </div>
-    </section>
-    <div class="container products">
-      <product-card
-        v-for="(item, index) in products"
-        :key="index"
-        :product="item"
-      />
+  <section>
+    <div class="container">
+      <h4>HEADPHONES</h4>
     </div>
-    <category-link :products="categoryProduct" />
-    <introduce />
-  </main>
+  </section>
+  <div class="container products">
+    <product-card
+      v-for="(item, index) in filteredHeadphones"
+      :key="index"
+      :product="item"
+    />
+  </div>
+  <category-link class="mb-10" :products="categoryProduct" />
+  <introduce class="mb-10" />
 </template>
 
 <script>
 import CategoryLink from "../components/CategoryLink.vue";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import Introduce from "../components/Introduce.vue";
 import ProductCard from "../components/ProductCard.vue";
 
 export default {
   components: { CategoryLink, Introduce, ProductCard },
+  created() {
+    this.filteredData;
+  },
   computed: {
     ...mapState(["productHero", "categoryProduct", "productsHome", "products"]),
+    ...mapGetters(["filteredHeadphones"]),
   },
 };
 </script>
@@ -47,6 +49,4 @@ section {
     }
   }
 }
-
-
 </style>

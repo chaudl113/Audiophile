@@ -8,7 +8,7 @@
       :key="index"
     />
   </section>
-  <introduce />
+  <introduce class="mb-10" />
 </template>
 
 <script>

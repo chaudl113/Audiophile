@@ -103,6 +103,10 @@ export default {
           outline: 1px solid hsl(0, 0%, 0%);
           color: hsl(0, 0%, 0%);
           font-weight: 700;
+          &:hover {
+            color: #fff;
+            background-color: hsl(0, 0%, 0%);
+          }
         }
       }
     }

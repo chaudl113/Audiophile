@@ -8,7 +8,7 @@
     <div class="card">
       <h6>{{ product.name }}</h6>
       <div>
-        <a href="/">
+        <a :href="product.name">
           Shop
           <img src="../assets/image/shared/desktop/icon-arrow-right.svg" alt=""
         /></a>
