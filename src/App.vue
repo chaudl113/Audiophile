@@ -12,6 +12,9 @@ import Footer from "./components/Footer.vue";
 import Navigation from "./components/Navigation.vue";
 export default {
   components: { Navigation, Footer },
+  mounted() {
+    this.$store.commit("UPDATE_CART_FROM_LOCAL_STORAGE");
+  },
 };
 </script>
 <style lang="scss">
@@ -22,6 +25,10 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
+}
+
+body {
+  background-color: hsl(0, 0%, 98%);
 }
 
 // utility classes
@@ -70,7 +77,7 @@ export default {
   text-decoration: none;
   color: #fff;
   display: inline-block;
-
+  cursor: pointer;
   background-color: hsl(22, 65%, 57%);
   &:hover {
     background-color: hsl(21, 94%, 75%);
@@ -83,5 +90,12 @@ export default {
 
 .text-white {
   color: #fff;
+}
+
+.text-error {
+  color: red;
+}
+.border-error {
+  border: 1px solid red !important;
 }
 </style>

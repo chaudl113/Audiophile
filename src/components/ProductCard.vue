@@ -11,7 +11,7 @@
     <div class="product__info">
       <div>
         <span class="overline"> {{ product.status }}</span>
-        <h3>{{ product.name }}</h3>
+        <h3>{{ product.name }} {{product.category}}</h3>
         <p>
           {{ product.description }}
         </p>

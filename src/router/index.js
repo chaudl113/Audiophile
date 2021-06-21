@@ -7,6 +7,8 @@ import Headphones from "../views/Headphones.vue";
 import Speakers from "../views/Speakers.vue";
 import Earphones from "../views/Earphones.vue";
 import Product from "../views/ProductView.vue";
+import Checkout from "../views/Checkout.vue";
+
 
 
 
@@ -31,6 +33,11 @@ const routes = [{
     component: Earphones,
   },
   {
+    path: "/checkout",
+    name: "checkout",
+    component: Checkout,
+  },
+  {
     path: "/product/:productId",
     name: "Product",
     component: Product,
@@ -38,6 +45,12 @@ const routes = [{
 ];
 
 const router = createRouter({
+  scrollBehavior() {
+    return {
+      x: 0,
+      y: 0
+    };
+  },
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });

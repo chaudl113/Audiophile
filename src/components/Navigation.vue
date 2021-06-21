@@ -32,94 +32,35 @@
         </nav>
         <div class="icon__cart" @click="onToggleCart">
           <img src="../assets/image/shared/desktop/icon-cart.svg" alt="" />
-          <span class="count__cart">1</span>
+          <span v-if="carts.length" class="count__cart">{{
+            carts.length
+          }}</span>
         </div>
         <div class="cart" v-if="cartAcive">
           <div class="header__cart flex">
-            <h4>Cart(2)</h4>
-            <a href="#">Remove all</a>
+            <h4>Cart({{carts.length}})</h4>
+            <a href="#" @click.prevent="removeAll">Remove all </a>
           </div>
-          <div class="body__cart">
-            <div class="item flex">
-              <div class="info__photo">
-                <img
-                  width="50px"
-                  height="50px"
-                  src="../assets/image/products/image-xx99-mark-two/image-xx99-mark-two.jpg"
-                  alt=""
-                />
-              </div>
-              <div class="info">
-                <h6 class="name">YX1</h6>
-                <span class="price">$599.00</span>
-              </div>
-              <div class="item__size">
-                <span class="minus">-</span>
-                <span class="number">1</span>
-                <span class="plus">+</span>
-              </div>
-            </div>
-            <div class="item flex">
-              <div class="info__photo">
-                <img
-                  width="50px"
-                  height="50px"
-                  src="../assets/image/products/image-xx99-mark-two/image-xx99-mark-two.jpg"
-                  alt=""
-                />
-              </div>
-              <div class="info">
-                <h6 class="name">YX1</h6>
-                <span class="price">$599.00</span>
-              </div>
-              <div class="item__size">
-                <span class="minus">-</span>
-                <span class="number">1</span>
-                <span class="plus">+</span>
-              </div>
-            </div>
-            <div class="item flex">
-              <div class="info__photo">
-                <img
-                  width="50px"
-                  height="50px"
-                  src="../assets/image/products/image-xx99-mark-two/image-xx99-mark-two.jpg"
-                  alt=""
-                />
-              </div>
-              <div class="info">
-                <h6 class="name">YX1</h6>
-                <span class="price">$599.00</span>
-              </div>
-              <div class="item__size">
-                <span class="minus">-</span>
-                <span class="number">1</span>
-                <span class="plus">+</span>
-              </div>
-            </div>
-            <div class="item flex">
-              <div class="info__photo">
-                <img
-                  width="50px"
-                  height="50px"
-                  src="../assets/image/products/image-xx99-mark-two/image-xx99-mark-two.jpg"
-                  alt=""
-                />
-              </div>
-              <div class="info">
-                <h6 class="name">YX1</h6>
-                <span class="price">$599.00</span>
-              </div>
-              <div class="item__size">
-                <span class="minus">-</span>
-                <span class="number">1</span>
-                <span class="plus">+</span>
-              </div>
-            </div>
+          <div class="body__cart" v-if="carts.length">
+            <item-card
+              v-for="(item, index) in carts"
+              :key="index"
+              :item="item"
+            />
           </div>
+          <p class="body__cart__empty" v-else>YOUR CART IS EMPTY</p>
+
           <div class="bottom__cart flex">
             <h4 class="totol">TOTAL</h4>
-            <h4 class="totol__price">$599.00</h4>
+            <h4 class="totol__price">
+              {{
+                total.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })
+              
+              }}
+            </h4>
           </div>
           <a href="#" class="orange-button">Checkout</a>
         </div>
@@ -132,9 +73,12 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex";
 import SidebarMobile from "./SidebarMobile.vue";
+import ItemCard from "./ItemCard.vue";
+
 export default {
-  components: { SidebarMobile },
+  components: { SidebarMobile, ItemCard },
   name: "Navigation",
   data() {
     return {
@@ -146,7 +90,21 @@ export default {
     this.ckeckScreen();
     window.addEventListener("resize", this.ckeckScreen);
   },
+  computed: {
+    ...mapState(["carts"]),
+    total() {
+      let total = 0;
+      this.carts.map((i) => {
+        console.log(i.qty);
+
+        console.log(i.price);
+        total += i.qty * parseInt(i.price);
+      });
+      return total;
+    },
+  },
   methods: {
+    ...mapMutations(["REMOVE_FROM_CART"]),
     toggleMenu() {
       this.menuActive = !this.menuActive;
     },
@@ -159,6 +117,9 @@ export default {
         this.menuActive = false;
         return;
       }
+    },
+    removeAll() {
+      this.REMOVE_FROM_CART();
     },
   },
   watch: {
@@ -306,71 +267,16 @@ header {
           opacity: 0.5;
         }
       }
-      .item {
-        justify-content: space-between;
-        margin-bottom: 0.8rem;
-        &:last-child {
-          margin-bottom: 2rem;
-        }
-        .info__photo {
-          flex: 3;
-          img {
-            border-radius: 10px;
-            width: 4rem;
-            height: 4rem;
-          }
-        }
 
-        .info {
-          flex: 3;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          letter-spacing: 0.081rem;
-
-          .name {
-            font-size: 15px;
-            font-weight: 900;
-          }
-          .price {
-            opacity: 0.5;
-            font-weight: bold;
-            font-size: 13px;
-          }
-        }
-        .item__size {
-          flex: 3;
-          display: flex;
-          justify-content: center;
-          align-self: center;
-          background-color: hsl(0, 0%, 95%);
-
-          .minus,
-          .plus {
-            display: inline-block;
-            font-size: 1rem;
-            color: hsl(0, 0%, 81%);
-            cursor: pointer;
-            font-weight: 500;
-            padding: 0.5rem 0.8rem;
-
-            font-family: Manrope;
-
-            &:hover {
-              color: hsl(22, 65%, 57%);
-            }
-          }
-          .number {
-            font-size: 1rem;
-            font-family: Manrope;
-            font-weight: bold;
-            padding: 0.5rem 0.8rem;
-          }
-        }
-      }
       .bottom__cart {
         justify-content: space-between;
         margin-bottom: 1rem;
+      }
+      p.body__cart__empty {
+        text-align: center;
+        margin: 50px 0px;
+        font-size: 25px;
+        font-weight: 900;
       }
       .orange-button {
         display: flex;

@@ -2,6 +2,10 @@ import {
   createStore
 } from 'vuex'
 
+function updateLocalStotage(cart) {
+  localStorage.setItem('carts', JSON.stringify(cart))
+}
+
 export default createStore({
   state: {
     productHero: {
@@ -53,8 +57,8 @@ export default createStore({
         productId: 1,
         category: 'headphones',
         status: 'NEW PRODUCT',
-        name: 'XX99 MARK I HEADPHONES',
-        price: '1,750.00',
+        name: 'XX99 MARK I',
+        price: 175000,
         imgProduct: 'product-xx99-mark-one-headphones',
         imgDescriptionOne: 'product-xx99-mark-one-headphones-image-gallery-1',
         imgDescriptionTwo: 'product-xx99-mark-one-headphones-image-gallery-2',
@@ -91,8 +95,8 @@ export default createStore({
         productId: 2,
         category: 'headphones',
         status: 'NEW PRODUCT',
-        name: 'XX99 MARK II HEADPHONES',
-        price: '2,999.00',
+        name: 'XX99 MARK II',
+        price: 175000,
         imgProduct: 'image-xx99-mark-two',
         imgDescriptionOne: 'image-xx99-mark-two-image-gallery-1',
         imgDescriptionTwo: 'image-xx99-mark-two-image-gallery-2',
@@ -125,8 +129,8 @@ export default createStore({
         productId: 3,
         category: 'headphones',
         status: 'NEW PRODUCT',
-        name: 'XX59 HEADPHONES',
-        price: '899.00',
+        name: 'XX59',
+        price: 175000,
         imgProduct: 'product-xx59-headphones',
         imgDescriptionOne: 'product-xx59-headphones-image-gallery-1',
         imgDescriptionTwo: 'product-xx59-headphones-image-gallery-2',
@@ -159,8 +163,8 @@ export default createStore({
         productId: 4,
         category: 'speakers',
         status: 'NEW PRODUCT',
-        name: 'ZX9 SPEAKER',
-        price: '4,500.00',
+        name: 'ZX9 ',
+        price: 175000,
         imgProduct: 'product-zx9-speaker',
         imgDescriptionOne: 'product-zx9-speaker-image-gallery-1',
         imgDescriptionTwo: 'product-zx9-speaker-image-gallery-2',
@@ -197,8 +201,8 @@ export default createStore({
         productId: 5,
         category: 'speakers',
         status: 'NEW PRODUCT',
-        name: 'ZX7 SPEAKER',
-        price: '3,500.00',
+        name: 'ZX7 ',
+        price: 175000,
         imgProduct: 'product-zx7-speaker',
         imgDescriptionOne: 'product-zx7-speaker-image-gallery-1',
         imgDescriptionTwo: 'product-zx7-speaker-image-gallery-2',
@@ -235,8 +239,8 @@ export default createStore({
         productId: 6,
         category: 'earphones',
         status: 'NEW PRODUCT',
-        name: 'YX1 WIRELESS EARPHONES',
-        price: '599.00',
+        name: 'YX1 WIRELESS ',
+        price: 175000,
         imgProduct: 'product-yx1-earphones',
         imgDescriptionOne: 'product-yx1-earphones-image-gallery-1',
         imgDescriptionTwo: 'product-yx1-earphones-image-gallery-2',
@@ -270,7 +274,12 @@ export default createStore({
         ]
       },
     ],
-    currentProductArray: null
+    currentProductArray: null,
+    carts: [
+
+    ],
+    total: 0,
+    cartProductExists: false
   },
   getters: {
     productAlsoLike(state) {
@@ -294,7 +303,47 @@ export default createStore({
       state.currentProductArray = state.products.filter(product => {
         return product.productId == payload
       })
+    },
+    SET_CART_PRODUCT(state, payload) {
+      state.carts.map(product => {
+        if (product.productId == payload.productId) {
+          product.qty += payload.qty
+          this.cartProductExists = true;
+        }
+
+      })
+
+      if (!this.cartProductExists) state.carts.push(payload);
+      updateLocalStotage(state.carts)
+    },
+    REMOVE_FROM_CART(state) {
+      state.carts = []
+      updateLocalStotage(state.carts)
+    },
+    UPDATE_CART_FROM_LOCAL_STORAGE(state) {
+      const cart = localStorage.getItem('carts');
+      if (cart) {
+        state.carts = JSON.parse(cart)
+      }
+    },
+    onMinusItemCart(state, payload) {
+      const item = state.carts.find(product => product.productId == payload)
+      if (item) {
+        if (item.qty > 1) {
+          item.qty--
+        } else {
+          state.carts = state.carts.filter(product => product.productId !== payload)
+        }
+        updateLocalStotage(state.carts)
+      }
+
+    },
+    onPlusItemCart(state, payload) {
+      const item = state.carts.find(product => product.productId == payload)
+      item.qty++
+      updateLocalStotage(state.carts)
     }
+
   },
   actions: {},
   modules: {}

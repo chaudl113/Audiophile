@@ -11,18 +11,25 @@
     <div class="product__info">
       <div>
         <span class="overline">{{ product.status }}</span>
-        <h3>{{ product.name }}</h3>
+        <h3>{{ product.name }} {{ product.category }}</h3>
         <p class="text">
           {{ product.description }}
         </p>
-        <p class="price">${{ product.price }}</p>
+        <p class="price">
+          {{
+            product.price.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })
+          }}
+        </p>
         <div class="actions flex">
           <div class="total">
-            <span class="minus">-</span>
-            <span class="number">0</span>
-            <span class="plus">+</span>
+            <span @click="onMinusTotal" class="minus">-</span>
+            <span class="number">{{ qty }}</span>
+            <span @click="onPlusTotal" class="plus">+</span>
           </div>
-          <button class="orange-button">ADD TO CART</button>
+          <button @click="onAddCart" class="orange-button">ADD TO CART</button>
         </div>
       </div>
     </div>
@@ -72,9 +79,35 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "Product",
   props: ["product"],
+  data() {
+    return {
+      qty: 1,
+    };
+  },
+  methods: {
+    ...mapMutations(["SET_CART_PRODUCT"]),
+    onMinusTotal() {
+      if (this.qty == 1) return;
+      this.qty--;
+    },
+    onPlusTotal() {
+      this.qty++;
+    },
+    onAddCart() {
+      let data = {
+        productId: this.product.productId,
+        name: this.product.name,
+        img: this.product.imgProduct,
+        price: this.product.price,
+        qty: this.qty,
+      };
+      this.SET_CART_PRODUCT(data);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -137,6 +170,11 @@ export default {
       .total {
         margin-right: 20px;
         background-color: hsl(0, 0%, 95%);
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer */
+        -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+        -webkit-user-select: none; /* Chrome, Safari, and Opera */
+        -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
         .minus,
         .plus {
           display: inline-block;
